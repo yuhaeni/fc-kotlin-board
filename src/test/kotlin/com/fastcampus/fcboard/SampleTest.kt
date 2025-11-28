@@ -6,6 +6,6 @@ import io.kotest.matchers.shouldBe
 class SampleTest :
     FunSpec({
         test("sample test") {
-            1 shouldBe 1
+            2 shouldBe 2
         }
     })
