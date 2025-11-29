@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class SampleController {
-
     @GetMapping("/sample")
     fun sample(): String = "sample"
 
@@ -15,5 +14,4 @@ class SampleController {
     fun sample(
         @RequestParam name: String,
     ): String = "sample name : $name"
-
 }
