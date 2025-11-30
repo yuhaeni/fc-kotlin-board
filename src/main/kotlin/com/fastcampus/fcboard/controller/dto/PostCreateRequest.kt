@@ -8,8 +8,9 @@ data class PostCreateRequest(
     val createdBy: String,
 )
 
-fun PostCreateRequest.toDto() = PostCreateRequestDto(
-    title = title,
-    content = content,
-    createdBy = createdBy
-)
+fun PostCreateRequest.toDto() =
+    PostCreateRequestDto(
+        title = title,
+        content = content,
+        createdBy = createdBy,
+    )

@@ -8,8 +8,9 @@ data class PostUpdateRequest(
     val updatedBy: String,
 )
 
-fun PostUpdateRequest.toDto() = PostUpdateRequestDto (
-    title = title,
-    content = content,
-    updatedBy = updatedBy
-)
+fun PostUpdateRequest.toDto() =
+    PostUpdateRequestDto(
+        title = title,
+        content = content,
+        updatedBy = updatedBy,
+    )

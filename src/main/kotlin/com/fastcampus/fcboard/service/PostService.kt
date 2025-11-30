@@ -16,23 +16,26 @@ class PostService(
     private val postRepository: PostRepository,
 ) {
     @Transactional // Transactional이 클래스 단위 함수 단위 둘 다 있는 경우, 함수 단위가 더 구체적이라 우선적으로 적용됨.
-    fun createPost(requestDto: PostCreateRequestDto): Long {
-        return postRepository.save(requestDto.toEntity()).id
-    }
+    fun createPost(requestDto: PostCreateRequestDto): Long = postRepository.save(requestDto.toEntity()).id
 
     @Transactional
-    fun updatePost(id: Long, requestDto: PostUpdateRequestDto): Long {
+    fun updatePost(
+        id: Long,
+        requestDto: PostUpdateRequestDto,
+    ): Long {
         val post = postRepository.findByIdOrNull(id) ?: throw PostNotFoundException()
         post.update(requestDto)
         return id
     }
 
     @Transactional
-    fun deletePost(id: Long, deletedBy: String): Long {
+    fun deletePost(
+        id: Long,
+        deletedBy: String,
+    ): Long {
         val post = postRepository.findByIdOrNull(id)
         if (post?.createdBy != deletedBy) throw PostNotDeletableException()
         postRepository.deleteById(id)
         return id
     }
-
 }
