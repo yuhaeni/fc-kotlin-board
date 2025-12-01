@@ -6,6 +6,7 @@ import com.fastcampus.fcboard.controller.dto.PostSearchRequest
 import com.fastcampus.fcboard.controller.dto.PostSummaryResponse
 import com.fastcampus.fcboard.controller.dto.PostUpdateRequest
 import com.fastcampus.fcboard.controller.dto.toDto
+import com.fastcampus.fcboard.controller.dto.toResponse
 import com.fastcampus.fcboard.service.PostService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -42,15 +43,11 @@ class PostController(
     @GetMapping("/posts/{id}")
     fun getPosts(
         @PathVariable id: Long,
-    ): PostDetailResponse = PostDetailResponse(1L, "title", "content", "createdBy", "updatedBy")
+    ): PostDetailResponse = postService.getPost(id).toResponse()
 
     @GetMapping("posts")
     fun getPosts(
         pageable: Pageable,
         postSearchRequest: PostSearchRequest,
-    ): Page<PostSummaryResponse> {
-        println("title: ${postSearchRequest.title}")
-        println("createdBy: ${postSearchRequest.createdBy}")
-        return Page.empty()
-    }
+    ): Page<PostSummaryResponse> = postService.findPageBy(pageable, postSearchRequest.toDto()).toResponse()
 }

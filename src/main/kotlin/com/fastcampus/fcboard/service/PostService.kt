@@ -4,8 +4,15 @@ import com.fastcampus.fcboard.exception.PostNotDeletableException
 import com.fastcampus.fcboard.exception.PostNotFoundException
 import com.fastcampus.fcboard.repository.PostRepository
 import com.fastcampus.fcboard.service.dto.PostCreateRequestDto
+import com.fastcampus.fcboard.service.dto.PostDetailResponseDto
+import com.fastcampus.fcboard.service.dto.PostSearchRequestDto
+import com.fastcampus.fcboard.service.dto.PostSummaryResponseDto
 import com.fastcampus.fcboard.service.dto.PostUpdateRequestDto
+import com.fastcampus.fcboard.service.dto.toDetailResponseDto
 import com.fastcampus.fcboard.service.dto.toEntity
+import com.fastcampus.fcboard.service.dto.toSummaryResponseDto
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -38,4 +45,13 @@ class PostService(
         postRepository.deleteById(id)
         return id
     }
+
+    fun getPost(id: Long): PostDetailResponseDto =
+        postRepository.findByIdOrNull(id)?.toDetailResponseDto() ?: throw PostNotFoundException()
+
+    fun findPageBy(
+        pageRequest: Pageable,
+        postSearchRequestDto: PostSearchRequestDto,
+    ): Page<PostSummaryResponseDto> =
+        postRepository.findPageBy(pageRequest, postSearchRequestDto).toSummaryResponseDto()
 }
