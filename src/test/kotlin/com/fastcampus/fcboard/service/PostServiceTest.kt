@@ -1,11 +1,10 @@
-package com.fastcampus.fcboard.controller
+package com.fastcampus.fcboard.service
 
 import com.fastcampus.fcboard.domain.Post
 import com.fastcampus.fcboard.exception.PostNotDeletableException
 import com.fastcampus.fcboard.exception.PostNotFoundException
 import com.fastcampus.fcboard.exception.PostNotUpdatableException
 import com.fastcampus.fcboard.repository.PostRepository
-import com.fastcampus.fcboard.service.PostService
 import com.fastcampus.fcboard.service.dto.PostCreateRequestDto
 import com.fastcampus.fcboard.service.dto.PostSearchRequestDto
 import com.fastcampus.fcboard.service.dto.PostUpdateRequestDto
@@ -17,7 +16,6 @@ import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldContain
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.jpa.domain.AbstractAuditable_.createdBy
 import org.springframework.data.repository.findByIdOrNull
 
 @SpringBootTest
