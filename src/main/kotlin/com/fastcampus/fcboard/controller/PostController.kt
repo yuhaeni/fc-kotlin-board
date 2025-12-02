@@ -41,7 +41,7 @@ class PostController(
     ): Long = postService.deletePost(id, createdBy)
 
     @GetMapping("/posts/{id}")
-    fun getPosts(
+    fun getPost(
         @PathVariable id: Long,
     ): PostDetailResponse = postService.getPost(id).toResponse()
 

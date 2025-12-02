@@ -1,0 +1,21 @@
+### 댓글 생성
+POST localhost:8080/posts/1/comments
+Content-Type: application/json
+
+{
+    "content": "댓글입니다 :)",
+    "createdBy": "kou"
+}
+
+### 댓글 수정
+PUT localhost:8080/comments/1
+Content-Type: application/json
+
+{
+    "content": "댓글 수정이용",
+    "updatedBy": "kou"
+}
+
+
+### 댓글 삭제
+DELETE localhost:8080/comments/1?deletedBy=kou
