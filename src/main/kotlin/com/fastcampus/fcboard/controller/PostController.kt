@@ -32,7 +32,10 @@ class PostController(
     fun updatePost(
         @PathVariable id: Long,
         @RequestBody postUpdateRequest: PostUpdateRequest,
-    ): Long = postService.updatePost(id, postUpdateRequest.toDto())
+    ): Long {
+        println(postUpdateRequest.tags)
+        return postService.updatePost(id, postUpdateRequest.toDto())
+    }
 
     @DeleteMapping("/posts/{id}")
     fun deletePost(

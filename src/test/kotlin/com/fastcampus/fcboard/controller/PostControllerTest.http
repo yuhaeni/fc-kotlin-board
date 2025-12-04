@@ -5,7 +5,8 @@ Content-Type: application/json
 {
     "title": "title",
     "content": "content",
-    "createdBy": "createdBy"
+    "createdBy": "createdBy",
+    "tags": ["tag1", "tag2"]
 }
 
 ### 게시글 수정
@@ -15,7 +16,8 @@ Content-Type: application/json
 {
     "title": "title",
     "content": "content",
-    "updatedBy": "updatedBy"
+    "updatedBy": "haeni",
+    "tags": ["tag1", "tag2"]
 }
 
 ### 게시글 삭제
@@ -25,4 +27,4 @@ DELETE /localhost:8080/posts/1?createdBy=haeni
 GET /localhost:8080/posts/1
 
 ### 게시글 목록조회
-GET localhost:8080/posts?page=0&size=10&title=title&createdBy=haeni
+GET localhost:8080/posts?page=0&size=10&tag=kotlin
