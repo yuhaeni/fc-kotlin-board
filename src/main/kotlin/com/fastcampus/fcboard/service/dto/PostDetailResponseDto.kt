@@ -1,6 +1,5 @@
 package com.fastcampus.fcboard.service.dto
 
-import com.fastcampus.fcboard.controller.dto.CommentResponse
 import com.fastcampus.fcboard.domain.Post
 
 data class PostDetailResponseDto(
@@ -9,7 +8,7 @@ data class PostDetailResponseDto(
     val content: String,
     val createdBy: String,
     val createdAt: String,
-    val comments: List<CommentResponse> = emptyList(),
+    val comments: List<CommentResponseDto>,
 )
 
 fun Post.toDetailResponseDto() =
@@ -19,4 +18,5 @@ fun Post.toDetailResponseDto() =
         content = content,
         createdBy = createdBy,
         createdAt = createdAt.toString(),
+        comments = comments.map { it.toResponseDto() },
     )

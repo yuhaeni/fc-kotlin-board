@@ -1,9 +1,11 @@
 package com.fastcampus.fcboard.service
 
+import com.fastcampus.fcboard.domain.Comment
 import com.fastcampus.fcboard.domain.Post
 import com.fastcampus.fcboard.exception.PostNotDeletableException
 import com.fastcampus.fcboard.exception.PostNotFoundException
 import com.fastcampus.fcboard.exception.PostNotUpdatableException
+import com.fastcampus.fcboard.repository.CommentRepository
 import com.fastcampus.fcboard.repository.PostRepository
 import com.fastcampus.fcboard.service.dto.PostCreateRequestDto
 import com.fastcampus.fcboard.service.dto.PostSearchRequestDto
@@ -22,6 +24,7 @@ import org.springframework.data.repository.findByIdOrNull
 class PostServiceTest(
     private val postService: PostService,
     private val postRepository: PostRepository,
+    private val commentRepository: CommentRepository,
 ) : BehaviorSpec({
 
         beforeSpec {
@@ -152,6 +155,22 @@ class PostServiceTest(
             When("게시물이 없을 때") {
                 then("게시물을 찾을 수 없다는 예외가 발생한다.") {
                     shouldThrow<PostNotFoundException> { postService.getPost(99999L) }
+                }
+            }
+
+            When("댓글 추가 시") {
+                commentRepository.save(Comment(content = "댓글@", post, createdBy = "Gou"))
+                commentRepository.save(Comment(content = "댓글*", post, createdBy = "Kou"))
+                commentRepository.save(Comment(content = "댓글#", post, createdBy = "Kou"))
+                then("게시물과 댓글이 함께 조회됨을 확인한다.") {
+                    val postDetail = postService.getPost(post.id)
+                    postDetail.comments.size shouldBe 3
+                    postDetail.comments[0].content shouldBe "댓글@"
+                    postDetail.comments[1].content shouldBe "댓글*"
+                    postDetail.comments[2].content shouldBe "댓글#"
+                    postDetail.comments[0].createdBy shouldBe "Gou"
+                    postDetail.comments[1].createdBy shouldBe "Kou"
+                    postDetail.comments[2].createdBy shouldBe "Kou"
                 }
             }
         }

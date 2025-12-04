@@ -19,6 +19,5 @@ fun PostDetailResponseDto.toResponse() =
         content = content,
         createdBy = createdBy,
         createdAt = createdAt,
-        // TODO 수정 필요
-//        comments = comments.map { it.toResponse() },
+        comments = comments.map { it.toResponse() },
     )
