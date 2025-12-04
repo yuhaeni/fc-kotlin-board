@@ -1,7 +1,7 @@
 spring:
     datasource:
-        url: jdbc:mysql://awseb-e-esmyh52fvg-stack-awsebrdsdatabase-awhs6cyduvdy.c5u2uwe0suup.ap-northeast-2.rds.amazonaws.com/board?useSSL=false&serverTimezone=Asia/Seoul
-        username: fastcamp
+        url: jdbc:mysql://awseb-e-xuntpzz3ms-stack-awsebrdsdatabase-1i4knurbyx0a.c5u2uwe0suup.ap-northeast-2.rds.amazonaws.com/board?useSSL=false&serverTimezone=Asia/Seoul
+        username: fastcam
         password: 1234qwer
         driver-class-name: com.mysql.cj.jdbc.Driver
     jpa:
