@@ -46,7 +46,7 @@ jobs:
           aws_access_key: ${{ secrets.KOU_AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.KOU_AWS_SECRET_ACCESS_KEY }}
           region: ${{ env.AWS_REGION }}
-          application_name: fc-board-2
-          environment_name: Fc-board-2-env
+          application_name: fc-board-v3
+          environment_name: Fc-board-v3-env
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           deployment_package: deploy/deploy.zip
