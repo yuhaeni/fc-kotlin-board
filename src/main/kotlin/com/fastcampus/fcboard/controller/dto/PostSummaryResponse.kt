@@ -1,5 +1,6 @@
 package com.fastcampus.fcboard.controller.dto
 
+import com.fastcampus.fcboard.domain.QTag.tag
 import com.fastcampus.fcboard.service.dto.PostSummaryResponseDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -25,4 +26,5 @@ fun PostSummaryResponseDto.toResponse() =
         title = title,
         createdBy = createdBy,
         createdAt = createdAt,
+        tag = firstTag,
     )
