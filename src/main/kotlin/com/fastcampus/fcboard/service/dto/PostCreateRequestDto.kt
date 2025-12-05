@@ -6,6 +6,7 @@ data class PostCreateRequestDto(
     val title: String,
     val content: String,
     val createdBy: String,
+    val tags: List<String> = emptyList(),
 )
 
 fun PostCreateRequestDto.toEntity() =
@@ -13,4 +14,5 @@ fun PostCreateRequestDto.toEntity() =
         title = title,
         content = content,
         createdBy = createdBy,
+        tags = tags,
     )
