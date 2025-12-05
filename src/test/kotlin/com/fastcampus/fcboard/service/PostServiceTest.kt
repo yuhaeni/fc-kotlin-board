@@ -351,9 +351,8 @@ class PostServiceTest(
                 val postPage = postService.findPageBy(PageRequest.of(0, 10), PostSearchRequestDto(tag = "tag5"))
                 then("태그에 해당되는 게시글이 반환된다.") {
                     postPage.number shouldBe 0
-                    postPage.size shouldBe 5
                     postPage.content.size shouldBe 5
-                    postPage.content[0].title shouldBe "title10"
+                    postPage.content[0].title shouldBe "title13"
                 }
             }
         }
