@@ -18,6 +18,7 @@ import io.kotest.matchers.longs.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldContain
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
@@ -28,6 +29,7 @@ class PostServiceTest(
     private val postRepository: PostRepository,
     private val commentRepository: CommentRepository,
     private val tagRepository: TagRepository,
+    @Autowired private val likeService: LikeService,
 ) : BehaviorSpec({
 
         beforeSpec {
@@ -268,6 +270,9 @@ class PostServiceTest(
                     Tag("tag3", post, "haeni"),
                 ),
             )
+            likeService.createLike(post.id, "goyou")
+            likeService.createLike(post.id, "goyou2")
+            likeService.createLike(post.id, "goyou3")
             When("정상 조회 시") {
                 val postDetail = postService.getPost(post.id)
                 then("게시글의 내용이 정상적으로 반환됨을 확인한다.") {
@@ -281,6 +286,9 @@ class PostServiceTest(
                     postDetail.tags[0] shouldBe "tag1"
                     postDetail.tags[1] shouldBe "tag2"
                     postDetail.tags[2] shouldBe "tag3"
+                }
+                then("좋아요 개수가 조회됨을 확인한다.") {
+                    postDetail.likeCount shouldBe 3
                 }
             }
 
@@ -353,6 +361,23 @@ class PostServiceTest(
                     postPage.number shouldBe 0
                     postPage.content.size shouldBe 5
                     postPage.content[0].title shouldBe "title13"
+                }
+            }
+            When("좋아요가 2개 추가되었을 때") {
+                val postPage = postService.findPageBy(PageRequest.of(0, 10), PostSearchRequestDto(title = "title2"))
+                postPage.content.forEach {
+                    likeService.createLike(it.id, "kou")
+                    likeService.createLike(it.id, "kou2")
+                }
+                val likedPostPage =
+                    postService.findPageBy(
+                        PageRequest.of(0, 10),
+                        PostSearchRequestDto(title = "title2"),
+                    )
+                then("좋아요 개수가 정상적으로 조회됨을 확인한다.") {
+                    likedPostPage.content.forEach {
+                        it.likeCount shouldBe 2
+                    }
                 }
             }
         }
