@@ -120,8 +120,8 @@ class PostServiceTest(
                 val postId =
                     postService.createPost(
                         PostCreateRequestDto(
-                            title = "제목",
-                            content = "내용",
+                            title = "제목1",
+                            content = "내용1",
                             createdBy = "haeni",
                         ),
                     )
@@ -129,8 +129,8 @@ class PostServiceTest(
                     postId shouldBeGreaterThan 0L
                     val post = postRepository.findByIdOrNull(postId)
                     post shouldNotBe null
-                    post?.title shouldBe "제목"
-                    post?.content shouldBe "내용"
+                    post?.title shouldBe "제목1"
+                    post?.content shouldBe "내용1"
                     post?.createdBy shouldBe "haeni"
                 }
             }
