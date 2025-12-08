@@ -1,6 +1,5 @@
 package com.fastcampus.fcboard.controller.dto
 
-import com.fastcampus.fcboard.domain.QTag.tag
 import com.fastcampus.fcboard.service.dto.PostSummaryResponseDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -11,6 +10,7 @@ data class PostSummaryResponse(
     val createdBy: String,
     val createdAt: String,
     val tag: String? = null,
+    val likeCount: Long = 0L,
 )
 
 fun Page<PostSummaryResponseDto>.toResponse() =
