@@ -30,7 +30,8 @@ class CustomTagRepositoryImpl :
         tagName: String,
     ): Page<Tag> =
         from(tag)
-            .join(tag.post, post).fetchJoin()
+            .join(tag.post, post)
+            .fetchJoin()
             .where(tag.name.eq(tagName))
             .orderBy(tag.post.createdAt.desc())
             .offset(pageRequest.offset)
