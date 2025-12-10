@@ -14,5 +14,5 @@ spring:
                 default_batch_fetch_size: 100
     cache:
         redis:
-            host: fc-board-redis.d080zy.apn2.cache.amazonaws.com
+            host: clustercfg.fc-board-redis.d080zy.apn2.cache.amazonaws.com:6379
             port: 6379
