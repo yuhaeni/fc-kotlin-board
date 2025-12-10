@@ -6,10 +6,12 @@ import com.fastcampus.fcboard.repository.LikeRepository
 import com.fastcampus.fcboard.repository.PostRepository
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.extensions.testcontainers.perSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
+import org.testcontainers.containers.GenericContainer
 
 @SpringBootTest
 class LikeServiceTest(
@@ -18,6 +20,15 @@ class LikeServiceTest(
     private val postRepository: PostRepository,
 ) : BehaviorSpec(
         {
+            val redisContainer = GenericContainer<Nothing>("redis:8.4.0")
+            beforeSpec {
+                redisContainer.portBindings.add("16379:6379")
+                redisContainer.start()
+                listener(redisContainer.perSpec())
+            }
+            afterSpec {
+                redisContainer.stop()
+            }
             given("좋아요 생성 시") {
                 val post = postRepository.save(Post("haeni", "title", "body"))
                 When("인풋이 정상적으로 들어오면") {
